@@ -1,9 +1,15 @@
 repos:
 -   repo: local
     hooks:
-      - id: requirements
-        name: requirements
-        entry: bash -c 'pip freeze > requirements.txt; git add requirements.txt'
-        language: system
-        pass_filenames: false
-        stages: [commit]
+    - id: venv
+      name: venv
+      entry: bash -c 'python -m venv .venv'
+      language: system
+      stages: [pre-commit]
+    
+    - id: requirements
+      name: requirements        
+      entry: bash -c 'pip freeze > requirements.txt; git add requirements.txt'
+      language: system
+      pass_filenames: false
+      stages: [pre-commit]
